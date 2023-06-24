@@ -1,8 +1,14 @@
 # GPS stuff
 
-Gonna keep this updated as a working log of what I'm doing in the gps folder
+Pathing and GPS naviagtion for the rover. **Documentation necessary!**
+
+[Gonna keep this updated as a working log of what I'm doing in the gps folder] -benton
 
 ---
+
+## Documentation
+
+This SoRo component is a new candidate for documentation! If you know markdown, and have a good idea about what's going on here, please feel free to [make a new page about it in the docs](https://sooner-rover-team.github.io/soro-documentation/html/new-page-guide.html)! :)
 
 ## Current build and run instructions
 
