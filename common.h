@@ -11,22 +11,20 @@
  * WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
-
 #ifndef LIBSBP_COMMON_H
 #define LIBSBP_COMMON_H
 
-#ifdef __cplusplus 
+#ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <stdint.h>
-#include <stdbool.h>
 #include <inttypes.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 /* Should match guard in libswiftnav/common.h */
 #ifndef COMMON_INT_TYPES
-#define COMMON_INT_TYPES
+    #define COMMON_INT_TYPES
 
 /** \defgroup common_inttypes Integer types
  * Specified-width integer type definitions for shorter and nicer code.
@@ -62,6 +60,4 @@ typedef uint64_t u64;
 }
 #endif
 
-
 #endif /* LIBSBP_COMMON_H */
-

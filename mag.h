@@ -25,23 +25,22 @@
 
 #include "common.h"
 
-
 /** Raw magnetometer data
  *
  * Raw data from the magnetometer.
  */
 #define SBP_MSG_MAG_RAW 0x0902
-typedef struct __attribute__((packed)) {
-  u32 tow;      /**< Milliseconds since start of GPS week. If the high bit is set, the
-time is unknown or invalid.
- [ms] */
-  u8 tow_f;    /**< Milliseconds since start of GPS week, fractional part
- [ms / 256] */
-  s16 mag_x;    /**< Magnetic field in the body frame X axis */
-  s16 mag_y;    /**< Magnetic field in the body frame Y axis */
-  s16 mag_z;    /**< Magnetic field in the body frame Z axis */
-} msg_mag_raw_t;
 
+typedef struct {
+        u32 tow; /**< Milliseconds since start of GPS week. If the high bit is set, the
+time is unknown or invalid.
+[ms] */
+        u8 tow_f; /**< Milliseconds since start of GPS week, fractional part
+[ms / 256] */
+        s16 mag_x; /**< Magnetic field in the body frame X axis */
+        s16 mag_y; /**< Magnetic field in the body frame Y axis */
+        s16 mag_z; /**< Magnetic field in the body frame Z axis */
+} msg_mag_raw_t;
 
 /** \} */
 

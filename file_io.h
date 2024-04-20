@@ -22,7 +22,7 @@
  * device's program flash with wear-levelling using a simple filesystem
  * interface. The file system interface (CFS) defines an abstract API
  * for reading directories and for reading and writing files.
- * 
+ *
  * Note that some of these messages share the same message type ID for both the
  * host request and the device response.
  * \{ */
@@ -31,7 +31,6 @@
 #define LIBSBP_FILE_IO_MESSAGES_H
 
 #include "common.h"
-
 
 /** Read file from the file system (host => device)
  *
@@ -44,14 +43,14 @@
  * print "Invalid fileio read message". A device will only respond
  * to this message when it is received from sender ID 0x42.
  */
-#define SBP_MSG_FILEIO_READ_REQ      0x00A8
-typedef struct __attribute__((packed)) {
-  u32 sequence;      /**< Read sequence number */
-  u32 offset;        /**< File offset [bytes] */
-  u8 chunk_size;    /**< Chunk size to read [bytes] */
-  char filename[0];   /**< Name of the file to read from */
-} msg_fileio_read_req_t;
+#define SBP_MSG_FILEIO_READ_REQ 0x00A8
 
+typedef struct {
+        u32 sequence; /**< Read sequence number */
+        u32 offset; /**< File offset [bytes] */
+        u8 chunk_size; /**< Chunk size to read [bytes] */
+        char filename[0]; /**< Name of the file to read from */
+} msg_fileio_read_req_t;
 
 /** File read from the file system (host <= device)
  *
@@ -61,12 +60,12 @@ typedef struct __attribute__((packed)) {
  * were succesfully read. The sequence number in the response is
  * preserved from the request.
  */
-#define SBP_MSG_FILEIO_READ_RESP     0x00A3
-typedef struct __attribute__((packed)) {
-  u32 sequence;    /**< Read sequence number */
-  u8 contents[0]; /**< Contents of read file */
-} msg_fileio_read_resp_t;
+#define SBP_MSG_FILEIO_READ_RESP 0x00A3
 
+typedef struct {
+        u32 sequence; /**< Read sequence number */
+        u8 contents[0]; /**< Contents of read file */
+} msg_fileio_read_resp_t;
 
 /** List files in a directory (host => device)
  *
@@ -81,14 +80,14 @@ typedef struct __attribute__((packed)) {
  * A device will only respond to this message when it is received
  * from sender ID 0x42.
  */
-#define SBP_MSG_FILEIO_READ_DIR_REQ  0x00A9
-typedef struct __attribute__((packed)) {
-  u32 sequence;    /**< Read sequence number */
-  u32 offset;      /**< The offset to skip the first n elements of the file list
- */
-  char dirname[0];  /**< Name of the directory to list */
-} msg_fileio_read_dir_req_t;
+#define SBP_MSG_FILEIO_READ_DIR_REQ 0x00A9
 
+typedef struct {
+        u32 sequence; /**< Read sequence number */
+        u32 offset; /**< The offset to skip the first n elements of the file list
+                    */
+        char dirname[0]; /**< Name of the directory to list */
+} msg_fileio_read_dir_req_t;
 
 /** Files listed in a directory (host <= device)
  *
@@ -100,11 +99,11 @@ typedef struct __attribute__((packed)) {
  * the response is preserved from the request.
  */
 #define SBP_MSG_FILEIO_READ_DIR_RESP 0x00AA
-typedef struct __attribute__((packed)) {
-  u32 sequence;    /**< Read sequence number */
-  u8 contents[0]; /**< Contents of read directory */
-} msg_fileio_read_dir_resp_t;
 
+typedef struct {
+        u32 sequence; /**< Read sequence number */
+        u8 contents[0]; /**< Contents of read directory */
+} msg_fileio_read_dir_resp_t;
 
 /** Delete a file from the file system (host => device)
  *
@@ -113,11 +112,11 @@ typedef struct __attribute__((packed)) {
  * print "Invalid fileio remove message". A device will only
  * process this message when it is received from sender ID 0x42.
  */
-#define SBP_MSG_FILEIO_REMOVE        0x00AC
-typedef struct __attribute__((packed)) {
-  char filename[0]; /**< Name of the file to delete */
-} msg_fileio_remove_t;
+#define SBP_MSG_FILEIO_REMOVE 0x00AC
 
+typedef struct {
+        char filename[0]; /**< Name of the file to delete */
+} msg_fileio_remove_t;
 
 /** Write to file (host => device)
  *
@@ -130,14 +129,14 @@ typedef struct __attribute__((packed)) {
  * only  process this message when it is received from sender ID
  * 0x42.
  */
-#define SBP_MSG_FILEIO_WRITE_REQ     0x00AD
-typedef struct __attribute__((packed)) {
-  u32 sequence;    /**< Write sequence number */
-  u32 offset;      /**< Offset into the file at which to start writing in bytes [bytes] */
-  char filename[0]; /**< Name of the file to write to */
-  u8 data[0];     /**< Variable-length array of data to write */
-} msg_fileio_write_req_t;
+#define SBP_MSG_FILEIO_WRITE_REQ 0x00AD
 
+typedef struct {
+        u32 sequence; /**< Write sequence number */
+        u32 offset; /**< Offset into the file at which to start writing in bytes [bytes] */
+        char filename[0]; /**< Name of the file to write to */
+        u8 data[0]; /**< Variable-length array of data to write */
+} msg_fileio_write_req_t;
 
 /** File written to (host <= device)
  *
@@ -147,11 +146,11 @@ typedef struct __attribute__((packed)) {
  * write. The sequence number in the response is preserved from the
  * request.
  */
-#define SBP_MSG_FILEIO_WRITE_RESP    0x00AB
-typedef struct __attribute__((packed)) {
-  u32 sequence;    /**< Write sequence number */
-} msg_fileio_write_resp_t;
+#define SBP_MSG_FILEIO_WRITE_RESP 0x00AB
 
+typedef struct {
+        u32 sequence; /**< Write sequence number */
+} msg_fileio_write_resp_t;
 
 /** \} */
 

@@ -19,7 +19,7 @@
  *
  *  * Messages for the bootloading configuration of a Piksi 2.3.1.  This message
  * group does not apply to Piksi Multi.
- * 
+ *
  * Note that some of these messages share the same message type ID for both the
  * host request and the device response.
  * \{ */
@@ -29,15 +29,13 @@
 
 #include "common.h"
 
-
 /** Bootloading handshake request (host => device)
  *
  * The handshake message request from the host establishes a
  * handshake between the device bootloader and the host. The
  * response from the device is MSG_BOOTLOADER_HANDSHAKE_RESP.
  */
-#define SBP_MSG_BOOTLOADER_HANDSHAKE_REQ   0x00B3
-
+#define SBP_MSG_BOOTLOADER_HANDSHAKE_REQ 0x00B3
 
 /** Bootloading handshake response (host <= device)
  *
@@ -47,22 +45,22 @@
  * payload contains the bootloader version number and the SBP
  * protocol version number.
  */
-#define SBP_MSG_BOOTLOADER_HANDSHAKE_RESP  0x00B4
-typedef struct __attribute__((packed)) {
-  u32 flags;      /**< Bootloader flags */
-  char version[0]; /**< Bootloader version number */
-} msg_bootloader_handshake_resp_t;
+#define SBP_MSG_BOOTLOADER_HANDSHAKE_RESP 0x00B4
 
+typedef struct {
+        u32 flags; /**< Bootloader flags */
+        char version[0]; /**< Bootloader version number */
+} msg_bootloader_handshake_resp_t;
 
 /** Bootloader jump to application (host => device)
  *
  * The host initiates the bootloader to jump to the application.
  */
-#define SBP_MSG_BOOTLOADER_JUMP_TO_APP     0x00B1
-typedef struct __attribute__((packed)) {
-  u8 jump;    /**< Ignored by the device */
-} msg_bootloader_jump_to_app_t;
+#define SBP_MSG_BOOTLOADER_JUMP_TO_APP 0x00B1
 
+typedef struct {
+        u8 jump; /**< Ignored by the device */
+} msg_bootloader_jump_to_app_t;
 
 /** Read FPGA device ID over UART request (host => device)
  *
@@ -73,8 +71,7 @@ typedef struct __attribute__((packed)) {
  * device ID in the payload. Note that this ID is tied to the FPGA,
  * and not related to the Piksi's serial number.
  */
-#define SBP_MSG_NAP_DEVICE_DNA_REQ         0x00DE
-
+#define SBP_MSG_NAP_DEVICE_DNA_REQ 0x00DE
 
 /** Read FPGA device ID over UART response (host <= device)
  *
@@ -85,23 +82,24 @@ typedef struct __attribute__((packed)) {
  * device ID in the payload. Note that this ID is tied to the FPGA,
  * and not related to the Piksi's serial number.
  */
-#define SBP_MSG_NAP_DEVICE_DNA_RESP        0x00DD
-typedef struct __attribute__((packed)) {
-  u8 dna[8]; /**< 57-bit SwiftNAP FPGA Device ID. Remaining bits are padded
+#define SBP_MSG_NAP_DEVICE_DNA_RESP 0x00DD
+
+typedef struct {
+        u8 dna
+            [8]; /**< 57-bit SwiftNAP FPGA Device ID. Remaining bits are padded
 on the right.
  */
 } msg_nap_device_dna_resp_t;
 
-
 /** Deprecated
  *
-* Deprecated.
+ * Deprecated.
  */
 #define SBP_MSG_BOOTLOADER_HANDSHAKE_DEP_A 0x00B0
-typedef struct __attribute__((packed)) {
-  u8 handshake[0]; /**< Version number string (not NULL terminated) */
-} msg_bootloader_handshake_dep_a_t;
 
+typedef struct {
+        u8 handshake[0]; /**< Version number string (not NULL terminated) */
+} msg_bootloader_handshake_dep_a_t;
 
 /** \} */
 

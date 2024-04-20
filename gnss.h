@@ -25,31 +25,28 @@
 
 #include "common.h"
 
-
 /** Represents all the relevant information about the signal
  *
  * Signal identifier containing constellation, band, and satellite identifier
  */
-typedef struct __attribute__((packed)) {
-  u8 sat;     /**< Constellation-specific satellite identifier */
-  u8 code;    /**< Signal constellation, band and code */
+typedef struct {
+        u8 sat; /**< Constellation-specific satellite identifier */
+        u8 code; /**< Signal constellation, band and code */
 } sbp_gnss_signal_t;
-
 
 /** Deprecated
  *
-* Deprecated.
+ * Deprecated.
  */
-typedef struct __attribute__((packed)) {
-  u16 sat;         /**< Constellation-specific satellite identifier.
-
+typedef struct {
+        u16 sat; /**< Constellation-specific satellite identifier.
+    
 Note: unlike GnssSignal, GPS satellites are encoded as
 (PRN - 1). Other constellations do not have this offset.
- */
-  u8 code;        /**< Signal constellation, band and code */
-  u8 reserved;    /**< Reserved */
+*/
+        u8 code; /**< Signal constellation, band and code */
+        u8 reserved; /**< Reserved */
 } gnss_signal_dep_t;
-
 
 /** Millisecond-accurate GPS time
  *
@@ -57,11 +54,10 @@ Note: unlike GnssSignal, GPS satellites are encoded as
  * milliseconds since beginning of the week on the Saturday/Sunday
  * transition.
  */
-typedef struct __attribute__((packed)) {
-  u32 tow;    /**< Milliseconds since start of GPS week [ms] */
-  u16 wn;     /**< GPS week number [week] */
+typedef struct {
+        u32 tow; /**< Milliseconds since start of GPS week [ms] */
+        u16 wn; /**< GPS week number [week] */
 } gps_time_dep_t;
-
 
 /** Whole second accurate GPS time
  *
@@ -69,11 +65,10 @@ typedef struct __attribute__((packed)) {
  * seconds since beginning of the week on the Saturday/Sunday
  * transition.
  */
-typedef struct __attribute__((packed)) {
-  u32 tow;    /**< Seconds since start of GPS week [s] */
-  u16 wn;     /**< GPS week number [week] */
+typedef struct {
+        u32 tow; /**< Seconds since start of GPS week [s] */
+        u16 wn; /**< GPS week number [week] */
 } gps_time_sec_t;
-
 
 /** Nanosecond-accurate receiver clock time
  *
@@ -82,14 +77,13 @@ typedef struct __attribute__((packed)) {
  * transition. In most cases, observations are epoch aligned
  * so ns field will be 0.
  */
-typedef struct __attribute__((packed)) {
-  u32 tow;            /**< Milliseconds since start of GPS week [ms] */
-  s32 ns_residual;    /**< Nanosecond residual of millisecond-rounded TOW (ranges
+typedef struct {
+        u32 tow; /**< Milliseconds since start of GPS week [ms] */
+        s32 ns_residual; /**< Nanosecond residual of millisecond-rounded TOW (ranges
 from -500000 to 500000)
- [ns] */
-  u16 wn;             /**< GPS week number [week] */
+[ns] */
+        u16 wn; /**< GPS week number [week] */
 } sbp_gps_time_t;
-
 
 /** GNSS carrier phase measurement.
  *
@@ -98,11 +92,10 @@ from -500000 to 500000)
  * cycles and 8-bits of fractional cycles. This phase has the
  * same sign as the pseudorange.
  */
-typedef struct __attribute__((packed)) {
-  s32 i;    /**< Carrier phase whole cycles [cycles] */
-  u8 f;    /**< Carrier phase fractional part [cycles / 256] */
+typedef struct {
+        s32 i; /**< Carrier phase whole cycles [cycles] */
+        u8 f; /**< Carrier phase fractional part [cycles / 256] */
 } carrier_phase_t;
-
 
 /** \} */
 

@@ -25,7 +25,6 @@
 
 #include "common.h"
 
-
 /** System start-up message
  *
  * The system start-up message is sent once on system
@@ -33,13 +32,13 @@
  * the system has started and is now ready to respond to commands
  * or configuration requests.
  */
-#define SBP_MSG_STARTUP      0xFF00
-typedef struct __attribute__((packed)) {
-  u8 cause;           /**< Cause of startup */
-  u8 startup_type;    /**< Startup type */
-  u16 reserved;        /**< Reserved */
-} msg_startup_t;
+#define SBP_MSG_STARTUP 0xFF00
 
+typedef struct {
+        u8 cause; /**< Cause of startup */
+        u8 startup_type; /**< Startup type */
+        u16 reserved; /**< Reserved */
+} msg_startup_t;
 
 /** Status of received corrections
  *
@@ -48,13 +47,13 @@ typedef struct __attribute__((packed)) {
  * corrections packet.
  */
 #define SBP_MSG_DGNSS_STATUS 0xFF02
-typedef struct __attribute__((packed)) {
-  u8 flags;          /**< Status flags */
-  u16 latency;        /**< Latency of observation receipt [deci-seconds] */
-  u8 num_signals;    /**< Number of signals from base station */
-  char source[0];      /**< Corrections source string */
-} msg_dgnss_status_t;
 
+typedef struct {
+        u8 flags; /**< Status flags */
+        u16 latency; /**< Latency of observation receipt [deci-seconds] */
+        u8 num_signals; /**< Number of signals from base station */
+        char source[0]; /**< Corrections source string */
+} msg_dgnss_status_t;
 
 /** System heartbeat message
  *
@@ -64,27 +63,27 @@ typedef struct __attribute__((packed)) {
  * flags that indicate to the host the status of the system and
  * whether it is operating correctly. Currently, the expected
  * heartbeat interval is 1 sec.
- * 
+ *
  * The system error flag is used to indicate that an error has
  * occurred in the system. To determine the source of the error,
  * the remaining error flags should be inspected.
  */
-#define SBP_MSG_HEARTBEAT    0xFFFF
-typedef struct __attribute__((packed)) {
-  u32 flags;    /**< Status flags */
-} msg_heartbeat_t;
+#define SBP_MSG_HEARTBEAT 0xFFFF
 
+typedef struct {
+        u32 flags; /**< Status flags */
+} msg_heartbeat_t;
 
 /** Inertial Navigation System status message
  *
  * The INS status message describes the state of the operation
- * and initialization of the inertial navigation system. 
+ * and initialization of the inertial navigation system.
  */
-#define SBP_MSG_INS_STATUS   0xFF03
-typedef struct __attribute__((packed)) {
-  u32 flags;    /**< Status flags */
-} msg_ins_status_t;
+#define SBP_MSG_INS_STATUS 0xFF03
 
+typedef struct {
+        u32 flags; /**< Status flags */
+} msg_ins_status_t;
 
 /** \} */
 

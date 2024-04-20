@@ -25,28 +25,27 @@
 
 #include "common.h"
 
-
 /** Raw IMU data
  *
  * Raw data from the Inertial Measurement Unit, containing accelerometer and
- * gyroscope readings. The sense of the measurements are to be aligned with 
+ * gyroscope readings. The sense of the measurements are to be aligned with
  * the indications on the device itself.
  */
 #define SBP_MSG_IMU_RAW 0x0900
-typedef struct __attribute__((packed)) {
-  u32 tow;      /**< Milliseconds since start of GPS week. If the high bit is set, the
-time is unknown or invalid.
- [ms] */
-  u8 tow_f;    /**< Milliseconds since start of GPS week, fractional part
- [ms / 256] */
-  s16 acc_x;    /**< Acceleration in the IMU frame X axis */
-  s16 acc_y;    /**< Acceleration in the IMU frame Y axis */
-  s16 acc_z;    /**< Acceleration in the IMU frame Z axis */
-  s16 gyr_x;    /**< Angular rate around IMU frame X axis */
-  s16 gyr_y;    /**< Angular rate around IMU frame Y axis */
-  s16 gyr_z;    /**< Angular rate around IMU frame Z axis */
-} msg_imu_raw_t;
 
+typedef struct {
+        u32 tow; /**< Milliseconds since start of GPS week. If the high bit is set, the
+time is unknown or invalid.
+[ms] */
+        u8 tow_f; /**< Milliseconds since start of GPS week, fractional part
+[ms / 256] */
+        s16 acc_x; /**< Acceleration in the IMU frame X axis */
+        s16 acc_y; /**< Acceleration in the IMU frame Y axis */
+        s16 acc_z; /**< Acceleration in the IMU frame Z axis */
+        s16 gyr_x; /**< Angular rate around IMU frame X axis */
+        s16 gyr_y; /**< Angular rate around IMU frame Y axis */
+        s16 gyr_z; /**< Angular rate around IMU frame Z axis */
+} msg_imu_raw_t;
 
 /** Auxiliary IMU data
  *
@@ -55,12 +54,12 @@ time is unknown or invalid.
  * depends on the value of `imu_type`.
  */
 #define SBP_MSG_IMU_AUX 0x0901
-typedef struct __attribute__((packed)) {
-  u8 imu_type;    /**< IMU type */
-  s16 temp;        /**< Raw IMU temperature */
-  u8 imu_conf;    /**< IMU configuration */
-} msg_imu_aux_t;
 
+typedef struct {
+        u8 imu_type; /**< IMU type */
+        s16 temp; /**< Raw IMU temperature */
+        u8 imu_conf; /**< IMU configuration */
+} msg_imu_aux_t;
 
 /** \} */
 
