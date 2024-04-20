@@ -4,7 +4,7 @@
 //%import common.h
 //%include edc.i
 %module sbp
-%{
+%inline %{
     #include "common.h"
     #include "edc.h"
     #include "sbp.h"

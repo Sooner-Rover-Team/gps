@@ -1,7 +1,8 @@
 %module gps
-%{
+%inline %{
 
     #include <stdio.h>
+    #include "common.h"
     #include <stdlib.h>
     #include <string.h>
     #include <unistd.h>
