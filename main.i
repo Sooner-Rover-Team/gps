@@ -7,12 +7,14 @@
     #include <arpa/inet.h>
     #include <sys/socket.h>
     #include <pthread.h>
-    #include "system.h"
-    #include "navigation.h"
-    #include "sbp.h"
-    #include "gps.h"
     extern int gpsmain();
 %}
+
+%import "gps.h"
+%import "system.h"
+%import "navigation.h"
+%import "sbp.h"
+
 extern int gpsmain();
  %inline %{
 	

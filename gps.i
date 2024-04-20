@@ -9,16 +9,7 @@
     #include <arpa/inet.h>
     #include <sys/socket.h>
     #include <pthread.h>
-    #include "sbp.h"
-    #include "system.h"
-    #include "navigation.h"
-    #include "gps.h"
-    extern msg_pos_llh_t      pos_llh;
-    extern msg_baseline_ned_t baseline_ned;
-    extern msg_vel_ned_t      vel_ned;
-    extern msg_dops_t         dops;
-    extern msg_gps_time_t     gps_time; 
-    extern msg_imu_raw_t      imu_raw;
+
     extern pthread_mutex_t mutex;
     extern void gps_init(char *ip, char *port);
     extern void gps_finish();
@@ -40,6 +31,12 @@
     extern void sbp_gps_time_callback(u16 sender_id, u8 len, u8 msg[], void *context);
     extern void sbp_imu_raw_callback(u16 sender_id, u8 len, u8 msg[], void *context);
 %}
+
+%import "sbp.h"
+%import "system.h"
+%import "navigation.h"
+%import "gps.h"
+
 extern pthread_mutex_t mutex;
 extern void gps_init(char *ip, char *port);
 extern void gps_finish();
