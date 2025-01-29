@@ -9,6 +9,7 @@ extern "C" {
 #include "system.h"
 
 #include <pthread.h>
+#include <stdatomic.h>
 
 /****** VARIABLES RELATED TO GPS STUFF *******/
 
@@ -37,6 +38,12 @@ char* tcp_ip_port;
 
 // thread bitch
 pthread_t gps_update_thread;
+
+/// Indicates when we want to stop the thread via an atomic.
+///
+/// In practice, this means that we'll stop the thread loop and gracefully
+/// finish the thread when this is set.
+static _Atomic bool thread_stop_flag = false;
 
 // state structure
 sbp_state_t s;

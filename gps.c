@@ -14,8 +14,10 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-// see header file for description
 void gps_init(char* ip, char* port) {
+    // set the thread stop atomic to `false`
+    thread_stop_flag = false;
+
     // assign the chosen ip address and port of Piksi
     tcp_ip_addr = ip;
     tcp_ip_port = port;
@@ -79,17 +81,18 @@ void gps_init(char* ip, char* port) {
     pthread_create(&gps_update_thread, NULL, gps_thread, NULL);
 }
 
-// see header file for description
 void gps_finish() {
     close_socket();
+
+    // deallocate the given strings
     free(tcp_ip_addr);
     free(tcp_ip_port);
 
-    // end that thread, bitch
+    // stop the thread
+    thread_stop_flag = true;
     pthread_join(gps_update_thread, NULL);
 }
 
-// see header file for description
 void setup_socket() {
     struct sockaddr_in server;
     printf("entered setup_socket\n");
@@ -97,28 +100,20 @@ void setup_socket() {
     if (socket_desc == -1) {
         fprintf(stderr, "Could not create socket\n");
     }
-    printf("passed if\n");
     memset(&server, '0', sizeof(server));
-    printf("passed memset\n");
     server.sin_addr.s_addr = inet_addr(tcp_ip_addr);
-    //server.sin_addr.s_addr = htonl(INADDR_ANY);
-    printf("passed server thing\n");
     server.sin_family = AF_INET;
-    printf("passed server.sin thing\n");
     server.sin_port = htons(atoi(tcp_ip_port));
-    printf("about to enter second if\n");
     if (connect(socket_desc, (struct sockaddr*)&server, sizeof(server)) < 0) {
         fprintf(stderr, "Connection error\n");
     }
     printf("done\n");
 }
 
-// see header file for description
 void close_socket() {
     close(socket_desc);
 }
 
-// see header file for description
 u32 socket_read(u8* buff, u32 n, void* context) {
     (void)context;
     u32 result;
@@ -147,10 +142,9 @@ double get_error() {
     return (pos_llh.h_accuracy + pos_llh.v_accuracy) / 2.0;
 }
 
-// see header file for description
 void* gps_thread() {
-    // sbp process (hence reading of GPS data) will need to loop FOREVER
-    while (1) {
+    // we'll read GPS data until the thread is told to stop.
+    while (!thread_stop_flag) {
         // Use mutual exclusion to prevent bullshit
         pthread_mutex_lock(&mutex);
         sbp_process(&s, &socket_read);
@@ -158,7 +152,6 @@ void* gps_thread() {
     }
 }
 
-// see header file for description
 void sbp_pos_llh_callback(u16 sender_id, u8 len, u8 msg[], void* context) {
     pos_llh = *(msg_pos_llh_t*)msg;
 }
